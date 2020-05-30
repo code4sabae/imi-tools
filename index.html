@@ -1,0 +1,122 @@
+<!DOCTYPE html><html><meta charset="utf-8"/><head>
+<title>IMI tools</title>
+<style>
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.head {
+  margin: 0;
+  padding: 1em;
+  background-color: #4396CC;
+  color: white;
+}
+.head a {
+  color: white !important;
+}
+h1 {
+  margin: 0;
+}
+.comp {
+  margin: 1em;
+}
+.comp > * {
+  vertical-align: top;
+  margin-top: .5em;
+}
+input, textarea {
+  width: 40vw;
+}
+textarea {
+  height: 5em;
+}
+#tools a, .footer a {
+  color: #333 !important;
+}
+.arrow {
+  font-size: 200%;
+}
+.github {
+  margin-left: 1em;
+}
+</style>
+</head><body>
+<script type="module">
+import IMIMojiConverter from "https://code4sabae.github.io/imi-moji-converter/IMIMojiConverter.mjs";
+import IMIEnrichmentContact from "https://code4sabae.github.io/imi-enrichment-contact/IMIEnrichmentContact.mjs";
+import IMIEnrichmentDate from "https://code4sabae.github.io/imi-enrichment-date/IMIEnrichmentDate.mjs";
+import IMIEnrichmentJSIC from "https://code4sabae.github.io/imi-enrichment-jsic/IMIEnrichmentJSIC.mjs";
+import generateIMIDataValidator from "https://code4sabae.github.io/imi-data-validator/IMIDataValidator.mjs";
+
+const main = async () => {
+  const path = "https://code4sabae.github.io/imi-data-validator/example/"
+  const fetchText = async url => (await fetch(url)).text();
+  const imiv = await fetchText(path + "imicore241.imiv.txt") + await fetchText(path + "datamodel.imiv.txt");
+  const IMIDataValidator = generateIMIDataValidator(imiv);
+
+  const converts = [
+    { name: "(1) 住所変換コンポーネント（coming soon）", sample: "" },
+    { name: "(2) 法人種別名の抽出コンポーネント（coming soon）", sample: "" },
+    { name: "(3) 全角-半角統一コンポーネント 全角→半角", func: IMIMojiConverter.toHalfWidth, sample: "あかさたな０１２３４５６７８９", src: "https://github.com/code4sabae/imi-moji-converter" },
+    { name: "(3) 全角-半角統一コンポーネント 半角→全角", func: IMIMojiConverter.toFullWidth, sample: "ｱｶｻﾀﾅ0123456789", src: "https://github.com/code4sabae/imi-moji-converter" },
+    { name: "(4) データバリデーションコンポーネント", func: IMIDataValidator, sample: ` { "@context": "https://imi.go.jp/ns/core/context.jsonld", "@type": "法人型", "表記": "株式会社ほげほげ" }`, src: "https://github.com/code4sabae/imi-data-validator" },
+    { name: "(5) 電話番号正規化パッケージ一式", func: IMIEnrichmentContact, sample: "0398765432(代表)", src: "https://github.com/code4sabae/imi-enrichment-contact" },
+    { name: "(6) 日付型正規化パッケージ一式", func: IMIEnrichmentDate, sample: "R1-1-1", src: "https://github.com/code4sabae/imi-enrichment-date" },
+    { name: "(7) 産業分類候補生成パッケージ一式", func: IMIEnrichmentJSIC, sample: "インターネット", src: "https://github.com/code4sabae/imi-enrichment-jsic" },
+  ];
+
+  const cr = (tag, cls, v) => {
+    const c = document.createElement(tag);
+    if (cls) { c.className = cls; }
+    if (v) { c.textContent = v; }
+    return c;
+  }
+  for (const cnv of converts) {
+    const div = cr("div", "comp");
+    const name = cr("span", "name", cnv.name);
+    div.appendChild(name);
+    if (cnv.src) {
+      const a = cr("a", "github", "(src on GitHub)");
+      a.href = cnv.src;
+      div.appendChild(a);
+    }
+    if (cnv.func) {
+      const br = cr("br");
+      div.appendChild(br);
+      const inp = cr("input");
+      inp.value = cnv.sample;
+      div.appendChild(inp);
+      const btn = cr("button", "convert", "変換");
+      div.appendChild(btn);
+      const arrow = cr("span", "arrow", "→");
+      div.appendChild(arrow);
+      const ta = cr("textarea");
+      div.appendChild(ta);
+
+      btn.cnv = cnv;
+      btn.inp = inp;
+      btn.ta = ta;
+      btn.onclick = function () {
+        const res = this.cnv.func(this.inp.value);
+        this.ta.value = typeof res === "string" ? res : JSON.stringify(res, null, 2);
+      }
+    }
+    tools.appendChild(div);
+  }
+}
+main();
+</script>
+<div class=head>
+<h1>IMIコンポーネントツール ESモジュール版</h1>
+<div class=subtitle>経済産業省によるオープンソース「<a href=https://info.gbiz.go.jp/tools/imi_tools/>IMIコンポーネントツール</a>」をブラウザ上や、Denoで動くESモジュール化して公開しています。<br>
+  すべてクライアント上で動作しています。(<a href=>src on GitHub</a>)</div>
+</div>
+<div id="tools"></div>
+
+<hr>
+<div class="footer">
+出典: <a href=https://info.gbiz.go.jp/tools/imi_tools/>IMI 情報共有基盤 コンポーネントツール</a><br>
+</div>
+
+</body></html>
