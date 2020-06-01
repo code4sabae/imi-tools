@@ -48,6 +48,7 @@ import IMIEnrichmentContact from "https://code4sabae.github.io/imi-enrichment-co
 import IMIEnrichmentDate from "https://code4sabae.github.io/imi-enrichment-date/IMIEnrichmentDate.mjs";
 import IMIEnrichmentJSIC from "https://code4sabae.github.io/imi-enrichment-jsic/IMIEnrichmentJSIC.mjs";
 import generateIMIDataValidator from "https://code4sabae.github.io/imi-data-validator/IMIDataValidator.mjs";
+import IMIEnrichmentAddress from "https://code4sabae.github.io/imi-enrichment-address/IMIEnrichmentAddress.mjs";
 
 const main = async () => {
   const path = "https://code4sabae.github.io/imi-data-validator/example/"
@@ -56,7 +57,7 @@ const main = async () => {
   const IMIDataValidator = generateIMIDataValidator(imiv);
 
   const converts = [
-    { name: "(1) 住所変換コンポーネント（coming soon）", sample: "" },
+    { name: "(1) 住所変換コンポーネント（coming soon）", func: IMIEnrichmentAddress, sample: "福井県鯖江市新横江二丁目3-4", src: "https://github.com/code4sabae/imi-enrichment-address" },
     { name: "(2) 法人種別名の抽出コンポーネント（coming soon）", sample: "" },
     { name: "(3) 全角-半角統一コンポーネント 全角→半角", func: IMIMojiConverter.toHalfWidth, sample: "あかさたな０１２３４５６７８９", src: "https://github.com/code4sabae/imi-moji-converter" },
     { name: "(3) 全角-半角統一コンポーネント 半角→全角", func: IMIMojiConverter.toFullWidth, sample: "ｱｶｻﾀﾅ0123456789", src: "https://github.com/code4sabae/imi-moji-converter" },
@@ -97,8 +98,8 @@ const main = async () => {
       btn.cnv = cnv;
       btn.inp = inp;
       btn.ta = ta;
-      btn.onclick = function () {
-        const res = this.cnv.func(this.inp.value);
+      btn.onclick = async function () {
+        const res = await this.cnv.func(this.inp.value);
         this.ta.value = typeof res === "string" ? res : JSON.stringify(res, null, 2);
       }
     }
