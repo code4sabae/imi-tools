@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><meta charset="utf-8"/><head>
-<title>IMI tools</title>
+<title>IMIコンポーネントツール ESモジュール版</title>
 <style>
 body {
   font-family: sans-serif;
@@ -57,7 +57,7 @@ const main = async () => {
   const IMIDataValidator = generateIMIDataValidator(imiv);
 
   const converts = [
-    { name: "(1) 住所変換コンポーネント（coming soon）", func: IMIEnrichmentAddress, sample: "福井県鯖江市新横江二丁目3-4", src: "https://github.com/code4sabae/imi-enrichment-address" },
+    { name: "(1) 住所変換コンポーネント β", func: IMIEnrichmentAddress, sample: "福井県鯖江市新横江二丁目3-4", src: "https://github.com/code4sabae/imi-enrichment-address" },
     { name: "(2) 法人種別名の抽出コンポーネント（coming soon）", sample: "" },
     { name: "(3) 全角-半角統一コンポーネント 全角→半角", func: IMIMojiConverter.toHalfWidth, sample: "あかさたな０１２３４５６７８９", src: "https://github.com/code4sabae/imi-moji-converter" },
     { name: "(3) 全角-半角統一コンポーネント 半角→全角", func: IMIMojiConverter.toFullWidth, sample: "ｱｶｻﾀﾅ0123456789", src: "https://github.com/code4sabae/imi-moji-converter" },
@@ -111,7 +111,7 @@ main();
 <div class=head>
 <h1>IMIコンポーネントツール ESモジュール版</h1>
 <div class=subtitle>経済産業省によるオープンソース「<a href=https://info.gbiz.go.jp/tools/imi_tools/>IMIコンポーネントツール</a>」をブラウザ上や、Denoで動くESモジュール化して公開しています。<br>
-  すべてクライアント上で動作しています。(<a href="https://github.com/code4sabae/imi-tools">src on GitHub</a>)</div>
+すべてクライアント上で動作しています。(<a href="https://github.com/code4sabae/imi-tools">src on GitHub</a>)</div>
 </div>
 <div id="tools"></div>
 
