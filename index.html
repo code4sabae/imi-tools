@@ -51,8 +51,6 @@ import generateIMIDataValidator from "https://code4sabae.github.io/imi-data-vali
 import IMIEnrichmentAddress from "https://code4sabae.github.io/imi-enrichment-address/IMIEnrichmentAddress.mjs";
 import IMIEnrichmentHojin from "https://code4sabae.github.io/imi-enrichment-address/IMIEnrichmentHojin.mjs";
 
-console.log(await IMIEnrichmentHojin("4000012090001"));
-
 const main = async () => {
   const path = "https://code4sabae.github.io/imi-data-validator/example/"
   const fetchText = async url => (await fetch(url)).text();
