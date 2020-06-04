@@ -47,12 +47,12 @@ import IMIMojiConverter from "https://code4sabae.github.io/imi-moji-converter-es
 import IMIEnrichmentContact from "https://code4sabae.github.io/imi-enrichment-contact/IMIEnrichmentContact.mjs";
 import IMIEnrichmentDate from "https://code4sabae.github.io/imi-enrichment-date/IMIEnrichmentDate.mjs";
 import IMIEnrichmentJSIC from "https://code4sabae.github.io/imi-enrichment-jsic/IMIEnrichmentJSIC.mjs";
-import generateIMIDataValidator from "https://code4sabae.github.io/imi-data-validator/IMIDataValidator.mjs";
+import generateIMIDataValidator from "https://code4sabae.github.io/imi-data-validator-es/IMIDataValidator.mjs";
 import IMIEnrichmentAddress from "https://code4sabae.github.io/imi-enrichment-address/IMIEnrichmentAddress.mjs";
 import IMIEnrichmentHojin from "https://code4sabae.github.io/imi-enrichment-hojin-es/IMIEnrichmentHojin.mjs";
 
 const main = async () => {
-  const path = "https://code4sabae.github.io/imi-data-validator/example/"
+  const path = "https://code4sabae.github.io/imi-data-validator-es/example/"
   const fetchText = async url => (await fetch(url)).text();
   const imiv = await fetchText(path + "imicore241.imiv.txt") + await fetchText(path + "datamodel.imiv.txt");
   const IMIDataValidator = generateIMIDataValidator(imiv);
@@ -62,7 +62,7 @@ const main = async () => {
      { name: "(2) 法人種別名の抽出コンポーネント", func: IMIEnrichmentHojin, sample: "4000012090001", src: "https://github.com/code4sabae/imi-enrichment-hojin-es" },
     { name: "(3) 全角-半角統一コンポーネント 全角→半角", func: IMIMojiConverter.toHalfWidth, sample: "あかさたな０１２３４５６７８９", src: "https://github.com/code4sabae/imi-moji-converter-es" },
     { name: "(3) 全角-半角統一コンポーネント 半角→全角", func: IMIMojiConverter.toFullWidth, sample: "ｱｶｻﾀﾅ0123456789", src: "https://github.com/code4sabae/imi-moji-converter-es" },
-    { name: "(4) データバリデーションコンポーネント", func: IMIDataValidator, sample: ` { "@context": "https://imi.go.jp/ns/core/context.jsonld", "@type": "法人型", "表記": "株式会社ほげほげ" }`, src: "https://github.com/code4sabae/imi-data-validator" },
+    { name: "(4) データバリデーションコンポーネント", func: IMIDataValidator, sample: ` { "@context": "https://imi.go.jp/ns/core/context.jsonld", "@type": "法人型", "表記": "株式会社ほげほげ" }`, src: "https://github.com/code4sabae/imi-data-validator-es" },
     { name: "(5) 電話番号正規化パッケージ一式", func: IMIEnrichmentContact, sample: "0398765432(代表)", src: "https://github.com/code4sabae/imi-enrichment-contact" },
     { name: "(6) 日付型正規化パッケージ一式", func: IMIEnrichmentDate, sample: "R1-1-1", src: "https://github.com/code4sabae/imi-enrichment-date" },
     { name: "(7) 産業分類候補生成パッケージ一式", func: IMIEnrichmentJSIC, sample: "インターネット", src: "https://github.com/code4sabae/imi-enrichment-jsic" },
