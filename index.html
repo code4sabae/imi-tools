@@ -49,7 +49,7 @@ import IMIEnrichmentDate from "https://code4sabae.github.io/imi-enrichment-date/
 import IMIEnrichmentJSIC from "https://code4sabae.github.io/imi-enrichment-jsic/IMIEnrichmentJSIC.mjs";
 import generateIMIDataValidator from "https://code4sabae.github.io/imi-data-validator/IMIDataValidator.mjs";
 import IMIEnrichmentAddress from "https://code4sabae.github.io/imi-enrichment-address/IMIEnrichmentAddress.mjs";
-// import IMIEnrichmentHojin from "https://code4sabae.github.io/imi-enrichment-address/IMIEnrichmentHojin.mjs";
+import IMIEnrichmentHojin from "https://code4sabae.github.io/imi-enrichment-hojin/IMIEnrichmentHojin.mjs";
 
 const main = async () => {
   const path = "https://code4sabae.github.io/imi-data-validator/example/"
@@ -59,8 +59,7 @@ const main = async () => {
 
   const converts = [
     { name: "(1) 住所変換コンポーネント β", func: IMIEnrichmentAddress, sample: "福井県鯖江市新横江二丁目3-4", src: "https://github.com/code4sabae/imi-enrichment-address" },
-//     { name: "(2) 法人種別名の抽出コンポーネント", func: IMIEnrichmentHojin, sample: "4000012090001", src: "https://github.com/code4sabae/imi-enrichment-hojin" },
-    { name: "(2) 法人種別名の抽出コンポーネント (comming soon)", func: IMIEnrichmentHojin, sample: "4000012090001", src: "https://github.com/code4sabae/imi-enrichment-hojin" },
+     { name: "(2) 法人種別名の抽出コンポーネント", func: IMIEnrichmentHojin, sample: "4000012090001", src: "https://github.com/code4sabae/imi-enrichment-hojin" },
     { name: "(3) 全角-半角統一コンポーネント 全角→半角", func: IMIMojiConverter.toHalfWidth, sample: "あかさたな０１２３４５６７８９", src: "https://github.com/code4sabae/imi-moji-converter" },
     { name: "(3) 全角-半角統一コンポーネント 半角→全角", func: IMIMojiConverter.toFullWidth, sample: "ｱｶｻﾀﾅ0123456789", src: "https://github.com/code4sabae/imi-moji-converter" },
     { name: "(4) データバリデーションコンポーネント", func: IMIDataValidator, sample: ` { "@context": "https://imi.go.jp/ns/core/context.jsonld", "@type": "法人型", "表記": "株式会社ほげほげ" }`, src: "https://github.com/code4sabae/imi-data-validator" },
